@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Hero from "@/components/hero";
+import Carousel from "@/components/carousel";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "App/Hero Section",
-  component: Hero,
+  title: "App/Carousel",
+  component: Carousel,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
@@ -17,19 +17,8 @@ const meta = {
       description: `A static image import or a public image url that will render the image`,
       type: "string",
     },
-    opacity: {
-      description: `The opacity of the overlay on the image`,
-      type: "number",
-      defaultValue: 0.3,
-    },
-    overlayOverrideStyle: {
-      description: `An optional style to override the defined style of the overlay`,
-    },
-    imageOverrideStyle: {
-      description: `An optional style to override the defined style of the underlying image`,
-    },
   },
-} satisfies Meta<typeof Hero>;
+} satisfies Meta<typeof Carousel>;
 
 export default meta;
 
@@ -40,7 +29,6 @@ export const Single: Story = {
   args: {
     imgSrc:
       "https://images.pexels.com/photos/16039120/pexels-photo-16039120/free-photo-of-sunlit-rocks-on-sea-shore.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    opacity: 0.3,
   },
-  name: "Single Image Hero",
+  name: "Carousel",
 };
