@@ -3,5 +3,6 @@
     "stylex",
     "stylexjs",
     "unoptimized"
-  ]
+  ],
+  "editor.formatOnSave": false
 }

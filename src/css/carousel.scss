@@ -7,6 +7,11 @@ $overlay-color: rgba(0, 0, 0, 0.3);
   height: 100vh;
   position: relative;
 
+  h1, h2, h3 {
+    color: white
+  }
+
+
   img {
     height: 100%;
     width: 100%;
