@@ -1,9 +1,10 @@
+import "@/css/carousel.scss";
 import { useState } from "react";
 import { StaticImageData } from "next/image";
 import { GoDotFill } from "react-icons/go";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import "@/css/carousel.scss";
 import CarouselSlide from "./slide";
+import { FC, ReactNode } from "react";
 import { getControlStylesBackground, getNextSlideIdx, getPrevSlideIdx } from "./utils";
 
 export type CarouselSlide = {
@@ -11,7 +12,7 @@ export type CarouselSlide = {
   content?: any;
 };
 
-type CarouselNavigationStyle = {
+export type CarouselNavigationStyle = {
   style: "arrow" | "dot";
   hasBgColor: boolean;
 };
@@ -22,41 +23,41 @@ type Props = {
   slides: CarouselSlide[];
 };
 
-export default function Carousel(props: Props) {
-
-  const { hasBgColor, style } = props?.navigationStyle;
-  const { slides } = props;
+const Carousel: FC<Props> = ({ slides, navigationStyle, ariaLabel}) => {
+  
+  const { hasBgColor, style } = navigationStyle;
 
   const [activeSlideIdx, setActiveSlideIdx] = useState(0);
-  const { resting, hover } = getControlStylesBackground(style, hasBgColor)
+  const { resting, hover } = getControlStylesBackground(style, hasBgColor);
 
-  const leftButtonClicked = () => {
+  const goToPreviousSlide = () => {
     const prevSlideIdx = getPrevSlideIdx(slides.length, activeSlideIdx);
     setActiveSlideIdx(prevSlideIdx);
   };
 
-  const rightButtonClicked = () => {
+  const goToNextSlide = () => {
     const nextSlideIdx = getNextSlideIdx(slides.length, activeSlideIdx);
     setActiveSlideIdx(nextSlideIdx);
   };
 
   return (
-    <section aria-label={`carousel ${props?.ariaLabel}`}>
+    <section aria-label={`carousel ${ariaLabel}`}>
       <div className="carousel">
-        <button
-          onClick={leftButtonClicked}
-          className={`carousel-button prev ${resting} ${hover}`}
-        >
-          <MdKeyboardArrowLeft />
-        </button>
-        <button
-          onClick={rightButtonClicked}
-          className={`carousel-button next ${resting} ${hover}`}
-        >
-          <MdKeyboardArrowRight />
-        </button>
+        {style === "arrow" && (
+          <button
+            onClick={goToPreviousSlide}
+            className={`carousel-button prev ${resting} ${hover}`}
+          >
+            <MdKeyboardArrowLeft />
+          </button>
+        )}
+        {style === "arrow" && (
+          <button onClick={goToNextSlide} className={`carousel-button next ${resting} ${hover}`}>
+            <MdKeyboardArrowRight />
+          </button>
+        )}
         <ul>
-          {props?.slides.map(({ imgSrc, content }, idx) => {
+          {slides.map(({ imgSrc, content }, idx) => {
             return (
               <CarouselSlide
                 imgSrc={imgSrc}
@@ -74,9 +75,12 @@ export default function Carousel(props: Props) {
 }
 
 Carousel.defaultProps = {
+  ariaLabel: "",
   navigationStyle: {
     style: "arrow",
     hasBgColor: true,
   },
   slides: [],
 };
+
+export default Carousel;

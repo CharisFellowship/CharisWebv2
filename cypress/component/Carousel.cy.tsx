@@ -1,9 +1,10 @@
-import Carousel, { CarouselSlide } from "@/components/carousel";
+import Carousel, { CarouselNavigationStyle, CarouselSlide } from "@/components/carousel";
 
 describe("Carousel", () => {
   beforeEach(() => {
     cy.viewport("macbook-15");
   });
+
 
   const overlayClass = ".overlay";
   const slideClass = ".slide";
@@ -18,18 +19,21 @@ describe("Carousel", () => {
   const sampleImage2 = "/assets/slideshow2.jpg";
   const sampleImage3 = "/assets/slideshow3.jpg";
 
+  const baseSlides: CarouselSlide[] = [
+    {
+      imgSrc: sampleImage,
+    },
+    {
+      imgSrc: sampleImage2,
+    },
+    {
+      imgSrc: sampleImage3,
+    },
+  ];
+
+  
+
   describe("Arrow style", () => {
-    const baseSlides: CarouselSlide[] = [
-      {
-        imgSrc: sampleImage,
-      },
-      {
-        imgSrc: sampleImage2,
-      },
-      {
-        imgSrc: sampleImage3,
-      },
-    ];
 
     it("base/simple component renders correctly", () => {
       cy.mount(<Carousel slides={baseSlides} />);
@@ -117,8 +121,29 @@ describe("Carousel", () => {
 
       cy.mount(<Carousel slides={baseSlidesWithContent} />);
 
+      cy.get(slideClass).get("h2").eq(0).should("be.visible");
       cy.get(slideClass).get("h2").eq(0).invoke("text").and("eq", "Any old text");
       cy.get(slideClass).get("h2").eq(0).should("have.css", "color").and("eq", "rgb(255, 255, 255)");
     });
+
+    afterEach(() => {
+      // runs after each test block
+      baseSlides.forEach((slide) => {
+        slide.content = null;
+      })
+    })
   });
+
+  describe("Dots style", () => {
+
+    it("base/simple component renders correctly with dots", () => {
+      const dotsStyle: CarouselNavigationStyle = {
+        style: "dot",
+        hasBgColor: true
+      };
+      const baseSlidesWithDots: CarouselSlide[] = [...baseSlides];
+      cy.mount(<Carousel slides={baseSlidesWithDots} navigationStyle={dotsStyle}/>);
+      cy.get(".overlay").should("have.css", "background-color").and("eq", overlayBgColor);
+    });
+  })
 });
