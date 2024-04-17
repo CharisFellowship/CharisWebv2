@@ -31,6 +31,15 @@ describe("Carousel", () => {
     },
   ];
 
+  const baseArrowStyle: CarouselNavigationStyle = {
+    style: "arrow",
+    hasBgColor: false
+  }
+
+  const baseDotStyle: CarouselNavigationStyle = {
+    style: "dot",
+    hasBgColor: false
+  }
   
 
   describe("Arrow style", () => {
@@ -119,7 +128,7 @@ describe("Carousel", () => {
       const baseSlidesWithContent: CarouselSlide[] = [...baseSlides];
       baseSlidesWithContent[0].content = <HeaderComponent />;
 
-      cy.mount(<Carousel slides={baseSlidesWithContent} />);
+      cy.mount(<Carousel slides={baseSlidesWithContent} navigationStyle={baseArrowStyle} />);
 
       cy.get(slideClass).get("h2").eq(0).should("be.visible");
       cy.get(slideClass).get("h2").eq(0).invoke("text").and("eq", "Any old text");
