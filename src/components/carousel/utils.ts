@@ -27,3 +27,18 @@ export const getPrevSlideIdx = (slidesLength: number, currSlideIdx: number): num
 
   return currSlideIdx-1;
 }
+
+export const getControlStylesBackground = (type: "arrow" | "dot", hasBgColor: boolean): { resting: string; hover: string} => {
+
+  if(type === "dot"){
+    return {
+      resting: "",
+      hover: ""
+    }
+  }
+
+  return {
+    resting: hasBgColor ? "bg-slider-controls-100" : "",
+    hover: hasBgColor ? "hover:bg-slider-controls-400" : ""
+  }
+}

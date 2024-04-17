@@ -15,6 +15,8 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
+import "tailwindcss/tailwind.css";
+import "cypress-real-events";
 import "@/css/global.scss";
 
 // Alternatively you can use CommonJS syntax:

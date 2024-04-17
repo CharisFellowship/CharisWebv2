@@ -5,6 +5,7 @@ const config = {
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
+    './cypress/component/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
@@ -16,6 +17,14 @@ const config = {
       screens: {
         "2xl": "1400px",
       },
+    },
+    colors: {
+      "slider-controls": {
+        100: "rgba(0,0,0,0.15)",
+        200: "rgba(0,0,0,0.3)",
+        300: "rgba(0,0,0,0.4)",
+        400: "rgba(0,0,0,0.5)",
+      }
     },
     extend: {
       keyframes: {
